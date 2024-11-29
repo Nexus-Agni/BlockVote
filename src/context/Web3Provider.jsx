@@ -22,16 +22,6 @@ function Web3Provider({children}) {
       }
     }
 
-    // useEffect(()=> {
-    //   window.ethereum.on("accountsChanged", handleAccountChange(setweb3state))
-    //   window.ethereum.on("chainChanged", handleChainChange(setweb3state))
-
-    //   return () => {
-    //     window.ethereum.removeListener("accountsChanged", handleAccountChange(setweb3state))
-    //     window.ethereum.removeListener("chainChanged", handleChainChange(setweb3state))
-    //   }
-    // }, [])
-
     useEffect(()=> {
       const handleAccountChangeWrapper = () => handleAccountChange(setweb3state);
       const handleChainChangeWrapper = () => handleChainChange(setweb3state);
@@ -44,6 +34,7 @@ function Web3Provider({children}) {
         window.ethereum.removeListener("chainChanged", handleChainChangeWrapper)
       }
     }, [setweb3state])
+    
   return (
     <div>
         <Web3Context.Provider value={web3state} >

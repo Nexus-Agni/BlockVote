@@ -1,20 +1,30 @@
-import { useState } from 'react'
 import Web3Provider from './context/web3Provider'
-import Dummy from './components/Dummy'
 import RegisterCandidate from './pages/Candidate/RegisterCandidate'
 import RegisterVoter from './pages/Voter/RegisterVoter'
 import GetVoterList from './pages/Voter/GetVoterList'
-import SetVotingPeriod from './components/ElectionCommission/SetVotingPeriod'
+import CastVote from './components/Voter/CastVote'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import Home from './pages/Home'
+import ElectionCommission from './pages/ElectionCommission/ElectionCommission'
+import GetCandidateList from './pages/Candidate/GetCandidateList'
 
 function App() {
-
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path='/' element={<Home />} />
+        <Route path='/register-candidate' element={<RegisterCandidate />} />
+        <Route path='/candidate-list' element={<GetCandidateList />} />
+        <Route path='/voter-list' element={<GetVoterList />} />
+        <Route path='/register-voter' element={<RegisterVoter />} />
+        <Route path='/election-commission' element={<ElectionCommission />} />
+      </>
+    )
+  )
   return (
     <>
       <Web3Provider>
-        {/* <RegisterCandidate /> */}
-        {/* <RegisterVoter /> */}
-        {/* <GetVoterList /> */}
-        {/* <SetVotingPeriod/> */}
+        <RouterProvider router={router} />
       </Web3Provider> 
     </>
   )
