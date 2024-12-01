@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { UseWeb3Context } from '../../context/UseWeb3Context'
 
 function AnnounceWinner() {
-    const {contractInstance} = UseWeb3Context()
+    const {web3state} = UseWeb3Context()
+    const {contractInstance} = web3state
     const [winner, setWinner] = useState(null);
 
     const handleAnnounceWinner = async (e) => {

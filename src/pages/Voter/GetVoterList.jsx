@@ -10,7 +10,8 @@ const GetVoterList = () => {
     { name: "Daisy Miller", age: 25, gender: "Female" },
   ];
 
-  const {contractInstance} = UseWeb3Context();
+  const {web3state} = UseWeb3Context()
+  const {contractInstance} = web3state
   useEffect(() => {
     const fetchVoterList = async () => {
       try {

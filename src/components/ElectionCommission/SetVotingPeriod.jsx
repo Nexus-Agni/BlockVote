@@ -2,7 +2,8 @@ import React, { useRef } from 'react'
 import { UseWeb3Context } from '../../context/UseWeb3Context'
 
 const SetVotingPeriod = () => {
-    const {contractInstance} = UseWeb3Context();
+    const {web3state} = UseWeb3Context()
+    const {contractInstance} = web3state
     const startTimeRef = useRef(null);
     const endTimeRef = useRef(null);
 
@@ -13,7 +14,7 @@ const SetVotingPeriod = () => {
         const endTimeDuration = endTimeRef.current.value;
         console.log("Start Time : ", startTimeDuration);
         console.log("End Time : ", endTimeDuration);
-        // await contractInstance.setVotingPeriod(startTimeDuration, endTimeDuration);
+        await contractInstance.setVotingPeriod(startTimeDuration, endTimeDuration);
       } catch (error) {
         console.log(error);
       }

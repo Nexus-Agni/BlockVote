@@ -1,8 +1,12 @@
 import React from 'react'
+import Wallet from '../components/Wallet/Wallet'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <Wallet />
+      Home
+    </div>
   )
 }
 

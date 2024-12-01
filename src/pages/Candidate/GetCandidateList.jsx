@@ -1,26 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { UseWeb3Context } from '../../context/UseWeb3Context';
 
 const GetCandidateList = () => {
   // Dummy array of candidates
-  const candidates = [
-    { name: "John Doe", age: 45, gender: "Male", party: "Democratic Party" },
-    { name: "Jane Smith", age: 38, gender: "Female", party: "Republican Party" },
-    { name: "Robert Brown", age: 52, gender: "Male", party: "Independent" },
-    { name: "Emily Davis", age: 29, gender: "Female", party: "Green Party" },
-  ];
+  // const candidates = [
+  //   { name: "John Doe", age: 45, gender: "Male", party: "Democratic Party" },
+  //   { name: "Jane Smith", age: 38, gender: "Female", party: "Republican Party" },
+  //   { name: "Robert Brown", age: 52, gender: "Male", party: "Independent" },
+  //   { name: "Emily Davis", age: 29, gender: "Female", party: "Green Party" },
+  // ];
+  const [candidates, setCandidates] = useState([]);
 
-  const {contractInstance} = UseWeb3Context();
+  const {web3state} = UseWeb3Context()
+  const {contractInstance} = web3state
   useEffect(() => {
     const fetchCandidateList = async () => {
       try {
-        const candidateList = await contractInstance.getCandidateList();
-        console.log(candidateList);
+        const Response = await contractInstance.getCandidateList();
+        console.log("Response : ",Response);
+        setCandidates(Response);
       } catch (error) {
         console.log(error);
       }
     }
     contractInstance && fetchCandidateList();
+    
   }, [contractInstance])
 
   return (
@@ -35,11 +39,19 @@ const GetCandidateList = () => {
           >
             <h3 className="text-lg font-semibold mb-2">{candidate.name}</h3>
             <p className="text-sm">
-              <span className="font-medium">Age:</span> {candidate.age}
+              <span className="font-medium">Age:</span> {candidate.age.toString()}
             </p>
-            <p className="text-sm">
-              <span className="font-medium">Gender:</span> {candidate.gender}
-            </p>
+            {
+              candidate.gender.toString() === "1" ? (
+                <p className="text-sm">
+                  <span className="font-medium">Gender:</span> Male
+                </p>
+              ) : (
+                <p className="text-sm">
+                  <span className="font-medium">Gender:</span> Female
+                </p>
+              )
+            }
             <p className="text-sm">
               <span className="font-medium">Party:</span> {candidate.party}
             </p>

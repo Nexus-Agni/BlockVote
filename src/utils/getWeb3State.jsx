@@ -1,5 +1,5 @@
 import { BrowserProvider, Contract } from "ethers";
-import abi from "../constant/abi.json"
+import abi from "../constant/abi.json";
 
 export async function getWeb3State() {
     try {
@@ -7,25 +7,28 @@ export async function getWeb3State() {
             throw new Error("Metamask wallet is not installed");
         }
         const accounts = await window.ethereum.request({
-            method : "eth_requestAccounts"
-        })
-        const selectedAccount = accounts[0]
+            method: "eth_requestAccounts"
+        });
+        const selectedAccount = accounts[0];
+        console.log("Selected Account: ", selectedAccount);
 
         const chainIdHex = await window.ethereum.request({
-            method : "eth_chainId"
-        })
+            method: "eth_chainId"
+        });
         const chainId = parseInt(chainIdHex, 16);
+        console.log("Chain ID: ", chainId);
 
-        const provider = new BrowserProvider(window.ethereum)
-        const signer = await provider.getSigner()
-        const contractAddress = "0xCCC15B5CCAF92d34f3A99c2270920D3Fcf42c290"
+        const provider = new BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        console.log("Signer: ", signer);
 
-        const contractInstance = new Contract(contractAddress, abi, signer)
+        const contractAddress = "0xcf4afb49fa982795fda593bc435dda15f9b1bc75";
+        const contractInstance = new Contract(contractAddress, abi, signer);
+        console.log("Contract Instance: ", contractInstance);
 
-        return {contractInstance, selectedAccount, chainId}
+        return { contractInstance, selectedAccount, chainId };
     } catch (error) {
         console.log(error);
-        throw new Error
+        throw new Error();
     }
 }
-

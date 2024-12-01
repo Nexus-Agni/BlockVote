@@ -3,7 +3,8 @@ import { UseWeb3Context } from '../../context/UseWeb3Context'
 import { AlertTriangle } from "lucide-react";
 
 function EmergencyDeclare() {
-    const {contractInstance} = UseWeb3Context()
+    const {web3state} = UseWeb3Context()
+    const {contractInstance} = web3state
 
     const handleEmergencyDeclare = async () => {
         try {

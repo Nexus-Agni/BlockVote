@@ -2,7 +2,8 @@ import React, { useRef } from 'react'
 import { UseWeb3Context } from '../../context/UseWeb3Context';
 
 function RegisterVoter() {
-  const {contractInstance} = UseWeb3Context()
+  const {web3state} = UseWeb3Context()
+  const {contractInstance} = web3state
   const nameRef = useRef(null);
   const ageRef = useRef(null);
   const genderRef = useRef(null);
@@ -15,8 +16,8 @@ function RegisterVoter() {
     console.log("Name : ", name);
     console.log("Age : ", age);
     console.log("Gender : ", gender);
-    // const voteCandidateId = await contractInstance.registerVoter(name, age, gender);
-    // console.log(voteCandidateId);
+    const voteCandidateId = await contractInstance.registerVoter(name, age, gender);
+    console.log(voteCandidateId);
   }
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-purple-900 via-purple-700 to-blue-900 text-gray-200">
@@ -66,9 +67,9 @@ function RegisterVoter() {
               <option value="" disabled>
                 Select gender
               </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="0">Other</option>
             </select>
           </div>
   

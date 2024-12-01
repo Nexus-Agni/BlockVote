@@ -2,7 +2,8 @@ import React, { useRef } from 'react'
 import { UseWeb3Context } from '../../context/UseWeb3Context'
 
 function CastVote() {
-  const {contractInstance} = UseWeb3Context();
+  const {web3state} = UseWeb3Context()
+  const {contractInstance} = web3state
   const candidateIdRef = useRef(null);
   const voterIdRef = useRef(null);
 
@@ -13,8 +14,8 @@ function CastVote() {
       const candidateId = candidateIdRef.current.value;
       console.log("Voter ID : ", voterId);
       console.log("Candidate ID : ", candidateId);
-      // const result = await contractInstance.castVote();
-      // console.log(result);
+      const result = await contractInstance.castVote();
+      console.log(result);
     } catch (error) {
       console.log(error);
     }

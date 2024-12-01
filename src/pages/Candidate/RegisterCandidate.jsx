@@ -2,7 +2,8 @@ import React, { useRef } from 'react'
 import { UseWeb3Context } from '../../context/UseWeb3Context';
 
 function RegisterCandidate() {
-  const {contractInstance} = UseWeb3Context();
+  const {web3state} = UseWeb3Context()
+  const {contractInstance} = web3state
   const nameRef = useRef(null);
   const ageRef = useRef(null);
   const partyRef = useRef(null);
@@ -11,18 +12,22 @@ function RegisterCandidate() {
   const handleCandidateRegistration = async (e) => {
     try {
       e.preventDefault();
-      const name = nameRef.current.value;
-      const age = ageRef.current.value;
-      const party = partyRef.current.value;
-      const gender = genderRef.current.value;
-      console.log("Name : ", name);
-      console.log("Age : ", age);
-      console.log("Party : ", party);
-      console.log("Gender : ", gender);
-      // const voteCandidateId = await contractInstance.registerCandidate(name, age, party, gender);
+      const _name = nameRef.current.value;
+      const _age = ageRef.current.value;
+      const _party = partyRef.current.value;
+      // const _gender = genderRef.current.value;
+      const _gender = 1;
+      console.log("Contract Instance : ", contractInstance);
+      
+      // console.log("Name : ", name);
+      // console.log("Age : ", age);
+      // console.log("Party : ", party);
+      // console.log("Gender : ", gender);
+      await contractInstance.registerCandidate(_name,_party, _age, _gender);
       // console.log(voteCandidateId);
     } catch (error) {
       console.log(error);
+      alert(error.message);
     }
   }
 
@@ -74,9 +79,9 @@ function RegisterCandidate() {
               <option value="" disabled>
                 Select gender
               </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="0">Other</option>
             </select>
           </div>
   
